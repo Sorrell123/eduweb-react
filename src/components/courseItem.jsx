@@ -24,7 +24,7 @@ class CourseItem extends Component {
         </div>
 
         {/* Course details column */}
-        <div className="media-right">
+        <div className="media-right ml-3">
           <CourseDetails
             author={this.props.data.author}
             duration={this.props.data.duration}

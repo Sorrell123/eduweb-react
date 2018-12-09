@@ -1,38 +1,42 @@
 import React, { Component } from "react";
-import CourseMedia from "./courseMedia";
-import CourseDetails from "./courseDetails";
-import CourseContent from "./courseContent";
+import CourseItem from "./components/courseItem";
+import courses_data from "./data/courses_data";
 
-class CourseItem extends Component {
+class App extends Component {
+  state = {
+    courses_data,
+    perpage: 3,
+    count: 4
+  };
+
   render() {
     return (
-      <div className="media mt-3">
-        {/* Course media column */}
-        <div className="media-left">
-          <CourseMedia image={this.props.data.image} />
+      <section className="container">
+        <div className="row">
+          {this.state.courses_data.slice(0,this.state.count).map(data => (
+            <CourseItem 
+            key={data.id}
+            data={data}
+            />
+          ))}
         </div>
-
-        {/* Course content column */}
-        <div className="media-body">
-          {/* Course content column */}
-          <CourseContent
-            title={this.props.data.title}
-            is_new={this.props.data.is_new}
-            description={this.props.data.description}
-            is_promo={this.props.data.is_promo}
-          />
+        <div className="row">
+            <button 
+              className="btn btn-info btn-block my-4" 
+              onClick={this.handleMore}>
+                Więcej
+            </button>
         </div>
-
-        {/* Course details column */}
-        <div className="media-right">
-          <CourseDetails
-            author={this.props.data.author}
-            duration={this.props.data.duration}
-          />
-        </div>
-      </div>
+      </section> 
     );
+  }
+
+  handleMore = () => {
+    let perpage = this.state.perpage, count = this.state.count;
+    count += perpage
+
+    this.setState({count});
   }
 }
 
-export default CourseItem;
+export default App;
