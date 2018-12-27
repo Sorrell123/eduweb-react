@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import CourseItem from "./components/courseItem";
+import CoursesList from "./components/coursesList";
+import CartList from "./components/cartList";
 import courses_data from "./data/courses_data";
 
 class App extends Component {
@@ -11,32 +12,37 @@ class App extends Component {
 
   render() {
     return (
-      <section className="container">
-        <div className="row">
-          {this.state.courses_data.slice(0,this.state.count).map(data => (
-            <CourseItem 
-            key={data.id}
-            data={data}
-            />
-          ))}
-        </div>
-        <div className="row">
-            <button 
-              className="btn btn-info btn-block my-4" 
-              onClick={this.handleMore}>
-                Więcej
+      <React.Fragment>
+        <section className="container">
+          <h2 className="title mx-2">Koszyk</h2>
+          <hr />
+          <CartList data={this.state} />
+        </section>
+        <section className="container">
+          <h2 className="title mx-2">Lista kursów</h2>
+          <hr />
+          <CoursesList data={this.state} />
+          <div className="row">
+            <button
+              className="btn btn-info btn-block my-4"
+              onClick={this.handleMore}
+            >
+              Więcej
             </button>
-        </div>
-      </section> 
+          </div>
+        </section>
+      </React.Fragment>
     );
   }
 
   handleMore = () => {
-    let perpage = this.state.perpage, count = this.state.count;
-    count += perpage
+    let perpage = this.state.perpage,
+      count = this.state.count;
 
-    this.setState({count});
-  }
+    count += perpage;
+
+    this.setState({ count });
+  };
 }
 
 export default App;

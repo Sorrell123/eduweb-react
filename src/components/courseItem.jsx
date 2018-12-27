@@ -1,35 +1,34 @@
 import React, { Component } from "react";
 import CourseMedia from "./courseMedia";
-import CourseDetails from "./courseDetails";
 import CourseContent from "./courseContent";
 
 class CourseItem extends Component {
   render() {
+    const Details = this.props.Details;
     return (
-      <div className="media mt-3">
-        {/* Course media column */}
-        <div className="media-left">
+      <div className="row">
+        <div className="media col mt-3">
+          {/* Course img column */}
           <CourseMedia image={this.props.data.image} />
+          <div className="media-body">
+            {/* Course content column */}
+            <CourseContent
+              title={this.props.data.title}
+              is_new={this.props.data.is_new}
+              description={this.props.data.description}
+            />
+            {this.props.children}
+          </div>
         </div>
-
-        {/* Course content column */}
-        <div className="media-body">
-          {/* Course content column */}
-          <CourseContent
-            title={this.props.data.title}
-            is_new={this.props.data.is_new}
-            description={this.props.data.description}
-            is_promo={this.props.data.is_promo}
-          />
-        </div>
-
         {/* Course details column */}
-        <div className="media-right ml-3">
-          <CourseDetails
-            author={this.props.data.author}
-            duration={this.props.data.duration}
-          />
-        </div>
+        {Details ? (
+          <aside className="col-3 mt-3">
+            <Details
+              author={this.props.author}
+              duration={this.props.duration}
+            />
+          </aside>
+        ) : null}
       </div>
     );
   }
